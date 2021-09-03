@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learn_riverpods/changepage.dart';
+import 'package:learn_riverpods/homepage.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -29,21 +31,42 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final halo = watch(myProvider);
     final nomer = watch(myStateProvider);
+
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('aaa'),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           // nomer.state++;
+//           context.read(myStateProvider).state++;
+//         },
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [Text(halo), Text(nomer.state.toString())],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('aaa'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // nomer.state++;
-          context.read(myStateProvider).state++;
-        },
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [Text(halo), Text(nomer.state.toString())],
+          children: [
+            Text(halo),
+            Text(nomer.state.toString()),
+            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())), child: Text('Kesana')),
+            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePage())), child: Text('Ke yang lain'))
+            ],
         ),
       ),
     );
