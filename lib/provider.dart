@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learn_riverpods/IdUserModel.dart';
 import 'package:learn_riverpods/apimodel.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,24 @@ class ApiRepository {
       throw Exception('No data');
     }
   }
+
+  Future<IdUserModel> fetchIdUser(id) async {
+    final resp = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users/$id'));
+    
+    if(resp.statusCode == 200)
+    {
+      var res = json.decode(resp.body);
+      print(res);
+      return IdUserModel.fromJson(res);
+    } else {
+      throw Exception('No data');
+    }
+  }
+
 }
+
+
+
 
 
 final airData = FutureProvider<Apimodel>((ref){
@@ -30,3 +48,9 @@ final airData = FutureProvider<Apimodel>((ref){
 });
 
 final apiProvider = Provider((x) => ApiRepository());
+
+final detailIdUser = FutureProvider.autoDispose.family<IdUserModel, String>((ref, id){
+  final api = ref.watch(apiProvider);
+  return api.fetchIdUser(id);
+  
+});

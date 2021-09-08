@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learn_riverpods/airweather.dart';
 import 'package:learn_riverpods/changepage.dart';
 import 'package:learn_riverpods/homepage.dart';
+import 'package:learn_riverpods/id_user_page.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -67,7 +68,8 @@ class MyHomePage extends ConsumerWidget {
             Text(nomer.state.toString()),
             TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())), child: Text('Kesana')),
             TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePage())), child: Text('Ke yang lain')),
-            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AirWeather())), child: Text('Ke api'))
+            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AirWeather())), child: Text('Ke api')),
+            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => IdUserPage(id: '2',))), child: Text('Ke id user'))
             ],
         ),
       ),
