@@ -6,10 +6,10 @@ import 'package:learn_riverpods/homepage.dart';
 import 'package:learn_riverpods/id_user_page.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: MyApp()));//here must have
 }
 
-final myProvider = Provider<String>((x) => 'Hai');
+final myProvider = Provider<String>((x) => 'Hai'); // constant provider
 final myStateProvider = StateProvider<int>((x) => 0);
 
 class MyApp extends ConsumerWidget {
@@ -59,6 +59,13 @@ class MyHomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text('aaa'),
       ),
+            floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // nomer.state++; //simple way but not recommended
+          context.read(myStateProvider).state++;
+        },
+      ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

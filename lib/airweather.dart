@@ -12,11 +12,16 @@ class AirWeather extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: Center(
-          child: cuaca.when(
-              data: (data) => Text(data.data.country.toString()),
-              loading: () => CircularProgressIndicator(),
-              error: (e, s) => Text('$e'))),
+      body: RefreshIndicator(
+        onRefresh: () => context.refresh(airData),
+        child: ListView(children: [
+          Center(
+              child: cuaca.when(
+                  data: (data) => Text(data.data.country.toString()),
+                  loading: () => CircularProgressIndicator(),
+                  error: (e, s) => Text('$e'))),
+        ]),
+      ),
     );
   }
 }
