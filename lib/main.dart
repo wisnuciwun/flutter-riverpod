@@ -4,13 +4,18 @@ import 'package:learn_riverpods/airweather.dart';
 import 'package:learn_riverpods/changepage.dart';
 import 'package:learn_riverpods/homepage.dart';
 import 'package:learn_riverpods/id_user_page.dart';
+import 'package:learn_riverpods/number_state_notifier.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));//here must have
+  runApp(ProviderScope(child: MyApp())); //here must have
 }
 
-final myProvider = Provider<String>((x) => 'Hai'); // constant provider
+final myProvider = Provider<String>(
+    (x) => 'Welcome !'); // constant provider
 final myStateProvider = StateProvider<int>((x) => 0);
+// final numberNotifierProvider = StateNotifierProvider<NumbersNotifier>((ref) {
+//   return NumbersNotifier(); //to call state in other class
+// });
 
 class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
@@ -31,7 +36,7 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, watch) {
-    final halo = watch(myProvider);
+    final welcome = watch(myProvider);
     final nomer = watch(myStateProvider);
 
 //     return Scaffold(
@@ -57,31 +62,55 @@ class MyHomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('aaa'),
+        title: Text('Learn Riverpod'),
       ),
-            floatingActionButton: FloatingActionButton(
-        onPressed: () {
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          increment(context)
           // nomer.state++; //simple way but not recommended
-          context.read(myStateProvider).state++;
+          // context.read(myStateProvider).state++;
         },
       ),
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(halo),
+            Text("Example Provider :"),
+            Text(welcome),
+            SizedBox(height: 20,),
+            Text("State Provider :"),
             Text(nomer.state.toString()),
-            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())), child: Text('Kesana')),
-            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePage())), child: Text('Ke yang lain')),
-            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AirWeather())), child: Text('Ke api')),
-            TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => IdUserPage(id: '2',))), child: Text('Ke id user'))
-            ],
+            TextButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage())),
+                child: Text('Consumer Widget')),
+            TextButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChangePage())),
+                child: Text('Change Notifier Provider')),
+            TextButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AirWeather())),
+                child: Text('Future Provider')),
+            TextButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => IdUserPage(
+                              id: '2',
+                            ))),
+                child: Text('Ke id user'))
+          ],
         ),
       ),
     );
   }
+}
+
+void increment(BuildContext context) {
+  //function can be like this
+  context.read(myStateProvider).state++;
 }
 
 // class MyHomePage extends StatefulWidget {

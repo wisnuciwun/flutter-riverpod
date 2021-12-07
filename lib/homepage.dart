@@ -5,11 +5,11 @@ class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
+  Widget build(BuildContext context, ScopedReader watch) {
     final cuaca = watch(futureProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Check temperature'),
       ),
       body: Center(
           child: cuaca.when(

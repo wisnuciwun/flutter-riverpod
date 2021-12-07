@@ -6,7 +6,7 @@ class AirWeather extends ConsumerWidget {
   const AirWeather({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
+  Widget build(BuildContext context, ScopedReader watch) {
     final cuaca = watch(airData);
     return Scaffold(
       appBar: AppBar(
